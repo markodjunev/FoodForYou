@@ -28,6 +28,9 @@
 
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<ApplicationUserFavouriteProduct> ApplicationUserFavouriteProducts { get; set; }
+
+        // public DbSet<Review> Reviews { get; set; }
         public DbSet<Setting> Settings { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);

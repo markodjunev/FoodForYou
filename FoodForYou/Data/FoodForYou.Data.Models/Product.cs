@@ -8,6 +8,11 @@
 
     public class Product : BaseDeletableModel<int>
     {
+        public Product()
+        {
+            this.ApplicationUserFavouriteProducts = new HashSet<ApplicationUserFavouriteProduct>();
+        }
+
         public string Name { get; set; }
 
         public decimal Price { get; set; }
@@ -19,6 +24,8 @@
         public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
+
+        public virtual ICollection<ApplicationUserFavouriteProduct> ApplicationUserFavouriteProducts { get; set; }
 
         // public virtual ICollection<Review> Reviews { get; set; }
     }
