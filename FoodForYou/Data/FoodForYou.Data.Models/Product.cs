@@ -11,6 +11,7 @@
         public Product()
         {
             this.ApplicationUserFavouriteProducts = new HashSet<ApplicationUserFavouriteProduct>();
+            this.Reviews = new HashSet<Review>();
         }
 
         public string Name { get; set; }
@@ -27,6 +28,6 @@
 
         public virtual ICollection<ApplicationUserFavouriteProduct> ApplicationUserFavouriteProducts { get; set; }
 
-        // public virtual ICollection<Review> Reviews { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

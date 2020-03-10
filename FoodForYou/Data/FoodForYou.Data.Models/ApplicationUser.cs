@@ -17,8 +17,7 @@ namespace FoodForYou.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.FavouriteProducts = new HashSet<ApplicationUserFavouriteProduct>();
-
-            // this.Reviews = new HashSet<Review>();
+            this.Reviews = new HashSet<Review>();
         }
 
         public string FirstName { get; set; }
@@ -45,6 +44,6 @@ namespace FoodForYou.Data.Models
 
         public virtual ICollection<ApplicationUserFavouriteProduct> FavouriteProducts { get; set; }
 
-        // public virtual ICollection<Review> Reviews { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }
