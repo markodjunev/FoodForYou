@@ -14,6 +14,8 @@
             this.Products = new HashSet<OrderProduct>();
         }
 
+        public string Address { get; set; }
+
         public string CreatorId { get; set; }
 
         public virtual ApplicationUser Creator { get; set; }

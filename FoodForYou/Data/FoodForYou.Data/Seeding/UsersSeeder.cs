@@ -26,7 +26,6 @@
             {
                 FirstName = "Ivan",
                 LastName = "Ivanov",
-                Address = "ul. Tintyava 500",
                 PhoneNumber = "+359 123 456 780",
                 UserName = "admin",
                 Email = "admin.a@abv.bg",
@@ -36,7 +35,6 @@
             {
                 FirstName = "Georgi",
                 LastName = "Georgiev",
-                Address = "ul. Moscovska 55",
                 PhoneNumber = "+359 023 456 780",
                 UserName = "Goshoo",
                 Email = "gosho.g@abv.bg",
