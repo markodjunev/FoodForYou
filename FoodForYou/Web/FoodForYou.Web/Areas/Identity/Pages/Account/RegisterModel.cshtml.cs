@@ -8,6 +8,7 @@
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
 
+    using FoodForYou.Common;
     using FoodForYou.Data.Models;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
@@ -47,14 +48,22 @@
 
         public class InputModel
         {
+            [Required]
+            [Display(Name = "First Name")]
             public string FirstName { get; set; }
 
+            [Required]
+            [Display(Name = "Last Name")]
             public string LastName { get; set; }
 
+            [Required]
+            [Display(Name = "Username")]
+            [StringLength(25, ErrorMessage = "The {0} must be between {2} and {1} characters!", MinimumLength = 3)]
             public string UserName { get; set; }
 
-            public string Address { get; set; }
-
+            [Required]
+            [Phone]
+            [Display(Name = "Phone Number")]
             public string PhoneNumber { get; set; }
 
             [Required]
@@ -86,11 +95,20 @@
             this.ExternalLogins = (await this.signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (this.ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = this.Input.Email, Email = this.Input.Email };
+                var user = new ApplicationUser
+                {
+                    FirstName = this.Input.FirstName,
+                    LastName = this.Input.LastName,
+                    UserName = this.Input.UserName,
+                    PhoneNumber = this.Input.PhoneNumber,
+                    Email = this.Input.Email,
+                };
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
                 if (result.Succeeded)
                 {
                     this.logger.LogInformation("User created a new account with password.");
+
+                    await this.userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
 
                     var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
