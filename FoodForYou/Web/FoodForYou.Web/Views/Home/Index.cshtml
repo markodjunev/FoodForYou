@@ -1,9 +1,27 @@
 ﻿@using FoodForYou.Common
+@using FoodForYou.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
 @{
     this.ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@if (!this.SignInManager.IsSignedIn(this.User))
+{
+    <div class="jumbotron">
+        <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
+        <p class="lead text-center">Enjoy your food, enjoy four life!</p>
+        <hr class="my-4">
+        <p><a asp-area="Identity" asp-page="/Account/Login">Login</a> if you have an account.</p>
+        <p><a asp-area="Identity" asp-page="/Account/Register">Register</a> if you don't have an account.</p>
+    </div>
+}
+else
+{
+    <div class="jumbotron">
+        <h1 class="display-4">Welcome @(this.User.Identity.Name)!</h1>
+        <p class="lead text-center">We wish you a fun experience!</p>
+        <hr class="my-4">
+        <p class="text-right">FoodForYou</p>
+    </div>
+}
