@@ -2,12 +2,21 @@
 {
     using System.Diagnostics;
 
+    using FoodForYou.Services.Interfaces;
     using FoodForYou.Web.ViewModels;
-
+    using FoodForYou.Web.ViewModels.Categories;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
+        private readonly ICategoryService categoryService;
+
+        public HomeController(ICategoryService categoryService)
+        {
+            this.categoryService = categoryService;
+        }
+
         public IActionResult Index()
         {
             return this.View();

@@ -1,0 +1,75 @@
+﻿@using FoodForYou.Common
+@using Microsoft.AspNetCore.Identity
+@using FoodForYou.Data.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@model FoodForYou.Web.ViewModels.Categories.AllCategoriesViewModel
+@{
+    ViewData["Title"] = "Menu";
+}
+
+<h1 class="text-center">Categories</h1>
+<hr class="my-4">
+
+@if (!this.SignInManager.IsSignedIn(this.User))
+{
+<div class="row">
+    @foreach (var category in Model.Categories)
+    {
+        <div class="col-md-4 media">
+            <img src="@category.ImageUrl" width="240" class="mr-3" alt="@category.ImageUrl">
+            <div class="media-body">
+                <h5 class="mt-0">
+                    <a asp-area="Identity" asp-page="/Account/Login">
+                        @category.Name
+                    </a>
+                </h5>
+            </div>
+        </div>
+    }
+</div>
+}
+else if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+{
+    <div class="row">
+        @foreach (var category in Model.Categories)
+        {
+            <div class="col-md-4 media">
+                <img src="@category.ImageUrl" width="240" class="mr-3" alt="@category.ImageUrl">
+                <div class="media-body">
+                    <h5 class="mt-0">
+                        <a asp-area="Identity" asp-page="/Account/Login">
+                            @category.Name
+                        </a>
+                    </h5>
+                </div>
+            </div>
+        }
+    </div>
+
+    <hr class="my-4">
+
+    <div class="text-right">
+        <a class="alert-link" asp-controller="Categories" asp-action="Create">Add Category</a>
+    </div>
+
+    <hr class="m-2 my-4">
+
+}
+else if (this.SignInManager.IsSignedIn(this.User))
+{
+    <div class="row">
+        @foreach (var category in Model.Categories)
+        {
+            <div class="col-md-4 media">
+                <img src="@category.ImageUrl" width="240" class="mr-3" alt="@category.ImageUrl">
+                <div class="media-body">
+                    <h5 class="mt-0">
+                        <a asp-controller="Home" asp-action="Index">
+                            @category.Name
+                        </a>
+                    </h5>
+                </div>
+            </div>
+        }
+    </div>
+}

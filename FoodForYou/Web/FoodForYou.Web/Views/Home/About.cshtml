@@ -1,13 +1,30 @@
 ﻿@using FoodForYou.Common
+@using FoodForYou.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
 @{
     ViewData["Title"] = "About";
 }
 
-<div class="jumbotron">
-    <h3>
-        <i class="icon-large icon-search"></i>@GlobalConstants.SystemName is an online web application created in 2020, which allows you to order the most delicious food in the city.
-        Everything is prepared with desire and quality by our chefs and be sure you don't miss opportunity to taste our wonderful dishes!
-    </h3>
-    <hr class="my-4">
-    <p class="text-right lead">Best regards, Team @GlobalConstants.SystemName</p>
-</div>
+@if (this.SignInManager.IsSignedIn(this.User))
+{
+    <div class="jumbotron alert-success">
+        <h3>
+            <i class="icon-large icon-search"></i>@GlobalConstants.SystemName is an online web application created in 2020, which allows you to order the most delicious food in the city.
+            Everything is prepared with desire and quality by our chefs and be sure you don't miss opportunity to taste our wonderful dishes!
+        </h3>
+        <hr class="my-4">
+        <p class="text-right lead">Best regards, Team @GlobalConstants.SystemName</p>
+    </div>
+}
+else
+{
+    <div class="jumbotron">
+        <h3>
+            <i class="icon-large icon-search"></i>@GlobalConstants.SystemName is an online web application created in 2020, which allows you to order the most delicious food in the city.
+            Everything is prepared with desire and quality by our chefs and be sure you don't miss opportunity to taste our wonderful dishes!
+        </h3>
+        <hr class="my-4">
+        <p class="text-right lead">Best regards, Team @GlobalConstants.SystemName</p>
+    </div>
+}
