@@ -37,7 +37,7 @@ else if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                 <img src="@category.ImageUrl" width="240" class="mr-3" alt="@category.ImageUrl">
                 <div class="media-body">
                     <h5 class="mt-0">
-                        <a asp-area="Identity" asp-page="/Account/Login">
+                        <a href="@category.Url">
                             @category.Name
                         </a>
                     </h5>
@@ -64,7 +64,7 @@ else if (this.SignInManager.IsSignedIn(this.User))
                 <img src="@category.ImageUrl" width="240" class="mr-3" alt="@category.ImageUrl">
                 <div class="media-body">
                     <h5 class="mt-0">
-                        <a asp-controller="Home" asp-action="Index">
+                        <a href="@category.Url" >
                             @category.Name
                         </a>
                     </h5>

@@ -35,7 +35,6 @@
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Create(CreateCategoryInputModel input)
         {
-            // var category = AutoMapperConfig.MapperInstance.Map<Category>(input);
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
