@@ -11,6 +11,7 @@
     using FoodForYou.Data.Seeding;
     using FoodForYou.Services;
     using FoodForYou.Services.Data;
+    using FoodForYou.Services.Data.Interfaces;
     using FoodForYou.Services.Interfaces;
     using FoodForYou.Services.Mapping;
     using FoodForYou.Services.Messaging;
@@ -63,6 +64,7 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
 
             Account account = new Account(
                              this.configuration["Cloudinary:AppName"],

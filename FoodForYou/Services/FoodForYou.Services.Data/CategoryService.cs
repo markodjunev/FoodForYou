@@ -10,6 +10,7 @@
     using FoodForYou.Data.Models;
     using FoodForYou.Services.Interfaces;
     using FoodForYou.Services.Mapping;
+    using Microsoft.AspNetCore.Http;
 
     public class CategoryService : ICategoryService
     {
@@ -20,9 +21,16 @@
             this.categoriesRepository = categoriesRepository;
         }
 
-        public Task CreateAsync()
+        public async Task CreateAsync(string name, string imageUrl)
         {
-            throw new NotImplementedException();
+            var category = new Category
+            {
+                Name = name,
+                ImageUrl = imageUrl,
+            };
+
+            await this.categoriesRepository.AddAsync(category);
+            await this.categoriesRepository.SaveChangesAsync();
         }
 
         public IEnumerable<T> GetAll<T>()

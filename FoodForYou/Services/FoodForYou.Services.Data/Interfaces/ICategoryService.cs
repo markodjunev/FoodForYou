@@ -5,9 +5,11 @@
     using System.Text;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Http;
+
     public interface ICategoryService
     {
-        Task CreateAsync();
+        Task CreateAsync(string name, string imageUrl);
 
         IEnumerable<T> GetAll<T>();
     }
