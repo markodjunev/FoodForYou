@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace FoodForYou.Data.Migrations
+﻿namespace FoodForYou.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class RenameOrderProducts : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -49,6 +49,7 @@
             return this.Redirect("/Categories/All");
         }
 
+        [AllowAnonymous]
         public IActionResult All()
         {
             var categoriesViewModel = new AllCategoriesViewModel

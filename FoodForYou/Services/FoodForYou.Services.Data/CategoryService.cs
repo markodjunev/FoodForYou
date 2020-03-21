@@ -10,7 +10,6 @@
     using FoodForYou.Data.Models;
     using FoodForYou.Services.Interfaces;
     using FoodForYou.Services.Mapping;
-    using Microsoft.AspNetCore.Http;
 
     public class CategoryService : ICategoryService
     {

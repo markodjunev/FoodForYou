@@ -5,6 +5,7 @@
     using System.IO;
     using System.Threading.Tasks;
 
+    using CommandLine;
     using FoodForYou.Data;
     using FoodForYou.Data.Common;
     using FoodForYou.Data.Common.Repositories;
@@ -13,9 +14,6 @@
     using FoodForYou.Data.Seeding;
     using FoodForYou.Services.Data;
     using FoodForYou.Services.Messaging;
-
-    using CommandLine;
-
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;

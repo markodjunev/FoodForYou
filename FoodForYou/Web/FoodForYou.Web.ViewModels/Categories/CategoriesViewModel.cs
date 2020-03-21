@@ -9,6 +9,6 @@
 
         public string ImageUrl { get; set; }
 
-        public string Url => $"/food/{this.Name}";
+        public string Url => $"/ffy/{this.Name.Replace(' ', '-')}";
     }
 }
