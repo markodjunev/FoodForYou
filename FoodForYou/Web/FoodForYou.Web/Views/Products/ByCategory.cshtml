@@ -1,4 +1,8 @@
-﻿@model FoodForYou.Web.ViewModels.Products.AllProductsViewModel
+﻿@using FoodForYou.Common
+@using Microsoft.AspNetCore.Identity
+@using FoodForYou.Data.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@model FoodForYou.Web.ViewModels.Products.AllProductsViewModel
 @{
     this.ViewData["Title"] = "Products";
     var products = Model.Products;
@@ -34,6 +38,6 @@
 
 <div class="d-flex justify-content-between">
     <div><a class="alert-danger" asp-controller="Categories" asp-action="Archived">Archive Category</a></div>
-    <div><a class="alert-link" asp-controller="Products" asp-action="Create" asp-route-id="@categoryId">Add Product</a></div>
+    <div><a class="alert-link" asp-controller="Products" asp-action="Create" asp-route-categoryId="@categoryId">Add Product</a></div>
 </div>
 <hr class="m-2 my-4">

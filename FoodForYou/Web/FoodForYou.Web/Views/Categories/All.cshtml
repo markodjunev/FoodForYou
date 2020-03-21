@@ -30,6 +30,14 @@
 }
 else if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
 {
+
+    <hr class="my-4">
+
+    <div class="d-flex justify-content-between">
+        <div><a class="alert-link" asp-controller="Categories" asp-action="Archived">Archived Categories</a></div>
+        <div><a class="alert-link" asp-controller="Categories" asp-action="Create">Add Category</a></div>
+    </div>
+    <hr class="m-2 my-4">
     <div class="row">
         @foreach (var category in Model.Categories)
         {
@@ -45,15 +53,6 @@ else if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             </div>
         }
     </div>
-
-    <hr class="my-4">
-
-    <div class="d-flex justify-content-between">
-        <div><a class="alert-link" asp-controller="Categories" asp-action="Archived">Archived Categories</a></div>
-        <div><a class="alert-link" asp-controller="Categories" asp-action="Create">Add Category</a></div>
-    </div>
-    <hr class="m-2 my-4">
-
 }
 else if (this.SignInManager.IsSignedIn(this.User))
 {
@@ -64,7 +63,7 @@ else if (this.SignInManager.IsSignedIn(this.User))
                 <img src="@category.ImageUrl" width="240" class="mr-3" alt="@category.ImageUrl">
                 <div class="media-body">
                     <h5 class="mt-0">
-                        <a href="@category.Url" >
+                        <a href="@category.Url">
                             @category.Name
                         </a>
                     </h5>
