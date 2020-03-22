@@ -12,12 +12,15 @@
 
 <hr class="my-4">
 
-<div class="d-flex justify-content-between">
-    <div><a class="alert-danger" asp-controller="Categories" asp-action="Archive" asp-route-categoryName="@categoryName">Archive Category</a></div>
-    <div><a class="alert-link" asp-controller="Products" asp-action="Create" asp-route-categoryName="@categoryName">Add Product</a></div>
-</div>
+@if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+{
+    <div class="d-flex justify-content-between">
+        <div><a class="alert-danger" asp-controller="Categories" asp-action="Archive" asp-route-categoryName="@categoryName">Archive Category</a></div>
+        <div><a class="alert-link" asp-controller="Products" asp-action="Create" asp-route-categoryName="@categoryName">Add Product</a></div>
+    </div>
 
-<hr class="m-2 my-4">
+    <hr class="m-2 my-4">
+}
 
 <div class="row">
     @foreach (var product in Model.Products)
@@ -28,7 +31,7 @@
                 <h5 class="card-title">@product.Name</h5>
                 <p class="card-subtitle mb-2 text-muted">@product.Price€</p>
                 <p class="card-text">@product.Description</p>
-                <a href="#" class="btn btn-primary">Details</a>
+                <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">Details</a>
             </div>
         </div>
     }

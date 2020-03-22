@@ -44,5 +44,10 @@
 
             return products.To<T>().ToList();
         }
+
+        public T GetById<T>(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

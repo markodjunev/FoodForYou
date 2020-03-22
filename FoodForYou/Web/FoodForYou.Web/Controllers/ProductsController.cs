@@ -27,6 +27,13 @@
             this.categoriesService = categoriesService;
         }
 
+        [Authorize]
+        public IActionResult Details(int id)
+        {
+            var product = this.productsService.GetById<ProductDetailsViewModel>(id);
+            return this.View();
+        }
+
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Create(string categoryName)
         {
