@@ -8,6 +8,7 @@
     using FoodForYou.Common;
     using FoodForYou.Data.Models;
     using FoodForYou.Services.Data.Interfaces;
+    using FoodForYou.Services.Interfaces;
     using FoodForYou.Services.Mapping;
     using FoodForYou.Web.ViewModels.Products;
     using Microsoft.AspNetCore.Authorization;
@@ -17,22 +18,25 @@
     {
         private readonly IProductService productsService;
         private readonly ICloudinaryService cloudinaryService;
+        private readonly ICategoryService categoriesService;
 
-        public ProductsController(IProductService productsService, ICloudinaryService cloudinaryService)
+        public ProductsController(IProductService productsService, ICloudinaryService cloudinaryService, ICategoryService categoriesService)
         {
             this.productsService = productsService;
             this.cloudinaryService = cloudinaryService;
+            this.categoriesService = categoriesService;
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        public IActionResult Create(int categoryId)
+        public IActionResult Create(string categoryName)
         {
+            this.ViewBag.CategoryName = categoryName;
             return this.View();
         }
 
         [HttpPost]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        public async Task<IActionResult> Create(int categoryId, CreateProductInputModel input)
+        public async Task<IActionResult> Create(string categoryName, CreateProductInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
@@ -49,17 +53,19 @@
                 Price = input.Price,
                 Description = input.Description,
                 ImageUrl = imageUrl,
-                CategoryId = categoryId,
+                CategoryId = this.categoriesService.GetIdByName(categoryName),
             };
 
             var result = await this.productsService.CreateAsync(product.Name, product.Price, product.Description, product.ImageUrl, product.CategoryId);
 
-            return this.Redirect($"ffy/{result.Category.Name}");
+            return this.RedirectToAction("ByCategory", new { categoryName });
         }
 
         [Authorize]
         public IActionResult ByCategory(string categoryName)
         {
+            this.ViewBag.CategoryName = categoryName;
+
             var allProductsViewModel = new AllProductsViewModel
             {
                 Products = this.productsService.GetAll<ProductsViewModel>(categoryName),

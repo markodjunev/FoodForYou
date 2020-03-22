@@ -26,6 +26,13 @@
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        public IActionResult Archive(string categoryName)
+        {
+            this.categoryService.ArchiveCategory(categoryName);
+            return this.Redirect("All");
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Create()
         {
             return this.View();

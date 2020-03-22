@@ -30,9 +30,6 @@
 }
 else if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
 {
-
-    <hr class="my-4">
-
     <div class="d-flex justify-content-between">
         <div><a class="alert-link" asp-controller="Categories" asp-action="Archived">Archived Categories</a></div>
         <div><a class="alert-link" asp-controller="Categories" asp-action="Create">Add Category</a></div>
@@ -45,7 +42,7 @@ else if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                 <img src="@category.ImageUrl" width="240" class="mr-3" alt="@category.ImageUrl">
                 <div class="media-body">
                     <h5 class="mt-0">
-                        <a href="@category.Url">
+                        <a asp-controller="Products" asp-action="ByCategory" asp-route-categoryName="@category.Name">
                             @category.Name
                         </a>
                     </h5>
@@ -63,7 +60,7 @@ else if (this.SignInManager.IsSignedIn(this.User))
                 <img src="@category.ImageUrl" width="240" class="mr-3" alt="@category.ImageUrl">
                 <div class="media-body">
                     <h5 class="mt-0">
-                        <a href="@category.Url">
+                        <a asp-controller="Products" asp-action="ByCategory" asp-route-categoryName="@category.Name">
                             @category.Name
                         </a>
                     </h5>

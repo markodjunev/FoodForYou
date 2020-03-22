@@ -12,5 +12,9 @@
         Task CreateAsync(string name, string imageUrl);
 
         IEnumerable<T> GetAll<T>();
+
+        int GetIdByName(string categoryName);
+
+        void ArchiveCategory(string categoryName);
     }
 }
