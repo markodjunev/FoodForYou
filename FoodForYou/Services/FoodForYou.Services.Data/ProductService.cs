@@ -47,7 +47,9 @@
 
         public T GetById<T>(int id)
         {
-            throw new NotImplementedException();
+            var product = this.productsRepository.All().Where(p => p.Id == id).To<T>().FirstOrDefault();
+
+            return product;
         }
     }
 }

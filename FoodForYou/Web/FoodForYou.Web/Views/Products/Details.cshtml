@@ -1,1 +1,36 @@
-﻿<h1>hello</h1>
+﻿@using FoodForYou.Common
+@model FoodForYou.Web.ViewModels.Products.ProductDetailsViewModel
+@{
+    this.ViewBag.ProductName = Model.Name;
+    ViewData["Title"] = this.ViewBag.ProductName;
+}
+
+    <div class="row">
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-6">
+            <div class="card" style="width: 23.3rem;">
+                <img src="@Model.ImageUrl" class="card-img-top" alt="15rem">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Name</h5>
+                    <p class="card-subtitle mb-2 text-muted">@Model.Price€</p>
+                    <p class="card-text">@Model.Description</p>
+                    <div class="d-flex justify-content-between">
+                        <a asp-controller="Products" asp-action="Details" asp-route-id="@Model" class="btn btn-primary">Add review</a>
+                        <a asp-controller="Products" asp-action="Details" asp-route-id="@Model" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+            {
+                <a class="btn btn-danger">Delete product</a>
+            }
+            else if (this.User.IsInRole(GlobalConstants.UserRoleName))
+            {
+                <a class="btn btn-primary">Add to favourites</a>
+            }
+        </div>
+    </div>

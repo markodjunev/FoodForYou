@@ -31,7 +31,9 @@
         public IActionResult Details(int id)
         {
             var product = this.productsService.GetById<ProductDetailsViewModel>(id);
-            return this.View();
+
+            // this.ViewBag.ProductName = product.Name;
+            return this.View(product);
         }
 
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
