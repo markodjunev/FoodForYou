@@ -66,6 +66,7 @@
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IOrderProductService, OrderProductService>();
 
             Account account = new Account(
                              this.configuration["Cloudinary:AppName"],

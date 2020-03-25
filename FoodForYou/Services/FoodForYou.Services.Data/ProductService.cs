@@ -51,5 +51,18 @@
 
             return product;
         }
+
+        public decimal GetPriceById(int id)
+        {
+            var product = this.productsRepository.All().Where(p => p.Id == id).FirstOrDefault();
+            return product.Price;
+        }
+
+        public Product GetProductById(int id)
+        {
+            var product = this.productsRepository.All().Where(p => p.Id == id).FirstOrDefault();
+
+            return product;
+        }
     }
 }

@@ -12,5 +12,9 @@
         IEnumerable<T> GetAll<T>(string categoryName);
 
         T GetById<T>(int id);
+
+        Product GetProductById(int id);
+
+        decimal GetPriceById(int id);
     }
 }
