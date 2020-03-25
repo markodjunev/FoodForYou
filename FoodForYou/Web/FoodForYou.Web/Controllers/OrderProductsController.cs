@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using FoodForYou.Common;
     using FoodForYou.Data.Models;
     using FoodForYou.Services.Data.Interfaces;
     using FoodForYou.Services.Mapping;
@@ -13,6 +13,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize]
     public class OrderProductsController : BaseController
     {
         private readonly IOrderProductService orderProductsService;
@@ -26,7 +27,6 @@
             this.userManager = userManager;
         }
 
-        [Authorize]
         public IActionResult AddToCart(int id)
         {
             this.ViewBag.ProductName = this.productsService.GetProductById(id).Name;
@@ -34,7 +34,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> AddToCart(int id, CreateOrderProductInputModel input)
         {
             if (!this.ModelState.IsValid)
@@ -47,6 +46,19 @@
 
             await this.orderProductsService.CreateOrderProductAsync(id, user.Id, productPrice, input.Quantity);
             return this.Redirect("/Categories/All");
+        }
+
+        public async Task<IActionResult> All()
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            var orderProducts = new AllProductsInCartViewModel
+            {
+                OrderedProducts = this.orderProductsService.GetAllByUserId<ProductInCartViewModel>(user.Id),
+            };
+
+            orderProducts.Sum = orderProducts.OrderedProducts.Sum(x => x.Price);
+            return this.View(orderProducts);
         }
     }
 }

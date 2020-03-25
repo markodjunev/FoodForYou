@@ -8,5 +8,7 @@
     public interface IOrderProductService
     {
         Task CreateOrderProductAsync(int productId, string creatorId, decimal productPrice, int quantity);
+
+        IEnumerable<T> GetAllByUserId<T>(string userId);
     }
 }

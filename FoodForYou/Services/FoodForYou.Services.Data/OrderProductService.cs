@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@
     using FoodForYou.Data.Models;
     using FoodForYou.Data.Models.Enums;
     using FoodForYou.Services.Data.Interfaces;
+    using FoodForYou.Services.Mapping;
 
     public class OrderProductService : IOrderProductService
     {
@@ -32,6 +34,14 @@
 
             await this.orderProductRepository.AddAsync(orderProduct);
             await this.orderProductRepository.SaveChangesAsync();
+        }
+
+        public IEnumerable<T> GetAllByUserId<T>(string userId)
+        {
+            IQueryable orderProducts = this.orderProductRepository.All()
+                .Where(x => x.CreatorId == userId && x.Status == OrderProductStatus.Active);
+
+            return orderProducts.To<T>().ToList();
         }
     }
 }
