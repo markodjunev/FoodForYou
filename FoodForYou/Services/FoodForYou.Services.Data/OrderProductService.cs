@@ -11,6 +11,7 @@
     using FoodForYou.Data.Models.Enums;
     using FoodForYou.Services.Data.Interfaces;
     using FoodForYou.Services.Mapping;
+    using FoodForYou.Web.ViewModels.OrderProducts;
 
     public class OrderProductService : IOrderProductService
     {
@@ -19,6 +20,17 @@
         public OrderProductService(IDeletableEntityRepository<OrderProduct> orderProductRepository)
         {
             this.orderProductRepository = orderProductRepository;
+        }
+
+        public async Task ClearCart(IEnumerable<ClearOrderedProductInCart> orderedProducts)
+        {
+            foreach (var orderProduct in orderedProducts)
+            {
+                var product = AutoMapperConfig.MapperInstance.Map<OrderProduct>(orderProduct);
+                product.IsDeleted = true;
+                this.orderProductRepository.Update(product);
+                await this.orderProductRepository.SaveChangesAsync();
+            }
         }
 
         public async Task CreateOrderProductAsync(int productId, string creatorId, decimal productPrice, int quantity)

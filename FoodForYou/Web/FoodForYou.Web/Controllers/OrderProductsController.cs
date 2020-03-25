@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using FoodForYou.Common;
     using FoodForYou.Data.Models;
     using FoodForYou.Services.Data.Interfaces;
@@ -59,6 +60,19 @@
 
             orderProducts.Sum = orderProducts.OrderedProducts.Sum(x => x.Price);
             return this.View(orderProducts);
+        }
+
+        public async Task<IActionResult> Clear()
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            var orderProducts = new ClearAllOrderedProductsInCart
+            {
+                OrderedProducts = this.orderProductsService.GetAllByUserId<ClearOrderedProductInCart>(user.Id),
+            };
+
+            await this.orderProductsService.ClearCart(orderProducts.OrderedProducts);
+            return this.Redirect("/Categories/All");
         }
     }
 }
