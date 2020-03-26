@@ -1,0 +1,26 @@
+﻿@model FoodForYou.Web.ViewModels.Orders.CreateOrderInputModel
+@{
+    ViewData["Title"] = "Proceed to order";
+}
+<h1 class="text-center m-4">Please insert your address to complete the order</h1>
+
+<hr class="my-4" />
+
+<div class="row m-5">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-5">
+        <form method="post">
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <label asp-for="@Model.Address" class="font-weight-bold h5"></label>
+                </div>
+                <textarea asp-for="@Model.Address" class="form-control" placeholder="Address..."></textarea>
+                <span asp-validation-for="@Model.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Order</button>
+            </div>
+        </form>
+    </div>
+</div>

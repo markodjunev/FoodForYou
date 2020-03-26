@@ -71,7 +71,7 @@
                 OrderedProducts = this.orderProductsService.GetAllByUserId<ClearOrderedProductInCart>(user.Id),
             };
 
-            await this.orderProductsService.ClearCart(orderProducts.OrderedProducts);
+            await this.orderProductsService.ClearCartAsync(orderProducts.OrderedProducts);
             return this.Redirect("/Categories/All");
         }
     }

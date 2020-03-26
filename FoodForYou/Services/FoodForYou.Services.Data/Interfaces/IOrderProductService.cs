@@ -1,11 +1,11 @@
 ﻿namespace FoodForYou.Services.Data.Interfaces
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
     using System.Threading.Tasks;
 
+    using FoodForYou.Data.Models;
     using FoodForYou.Web.ViewModels.OrderProducts;
+    using FoodForYou.Web.ViewModels.Orders;
 
     public interface IOrderProductService
     {
@@ -13,6 +13,8 @@
 
         IEnumerable<T> GetAllByUserId<T>(string userId);
 
-        Task ClearCart(IEnumerable<ClearOrderedProductInCart> orderedProducts);
+        Task ClearCartAsync(IEnumerable<ClearOrderedProductInCart> orderedProducts);
+
+        void SetOrderedProductsToOrder(Order order);
     }
 }

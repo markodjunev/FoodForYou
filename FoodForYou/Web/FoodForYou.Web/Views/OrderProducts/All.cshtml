@@ -11,7 +11,7 @@
 else
 {
 
-    <h1 class="text-center">Current products in the cart</h1>
+    <h1 class="text-center m-4">Current products in the cart</h1>
 
 
 <table class="table">
@@ -52,7 +52,7 @@ else
 
 <div class="d-flex justify-content-between">
     <a asp-controller="OrderProducts" asp-action="Clear" asp-route-id="" class="btn btn-danger">Clear Cart</a>
-    <a asp-controller="Order" asp-action="ProcedeToOrder" asp-route-id="" class="btn btn-primary">Procede to Order</a>
+    <a asp-controller="Orders" asp-action="ProceedToOrder" asp-route-id="" class="btn btn-primary">Proceed to Order</a>
 </div>
 }
 

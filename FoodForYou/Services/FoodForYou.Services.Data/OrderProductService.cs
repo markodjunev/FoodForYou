@@ -12,6 +12,7 @@
     using FoodForYou.Services.Data.Interfaces;
     using FoodForYou.Services.Mapping;
     using FoodForYou.Web.ViewModels.OrderProducts;
+    using FoodForYou.Web.ViewModels.Orders;
 
     public class OrderProductService : IOrderProductService
     {
@@ -22,7 +23,7 @@
             this.orderProductRepository = orderProductRepository;
         }
 
-        public async Task ClearCart(IEnumerable<ClearOrderedProductInCart> orderedProducts)
+        public async Task ClearCartAsync(IEnumerable<ClearOrderedProductInCart> orderedProducts)
         {
             foreach (var orderProduct in orderedProducts)
             {
@@ -54,6 +55,22 @@
                 .Where(x => x.CreatorId == userId && x.Status == OrderProductStatus.Active);
 
             return orderProducts.To<T>().ToList();
+        }
+
+        public void SetOrderedProductsToOrder(Order order)
+        {
+            var orderedProducts = this.orderProductRepository.All()
+                .Where(x => x.CreatorId == order.CreatorId && x.Status == OrderProductStatus.Active)
+                .ToList();
+
+            order.Products = orderedProducts;
+            order.Price = orderedProducts.Sum(x => x.Price);
+
+            foreach (var product in orderedProducts)
+            {
+                product.Status = OrderProductStatus.Completed;
+                this.orderProductRepository.Update(product);
+            }
         }
     }
 }
