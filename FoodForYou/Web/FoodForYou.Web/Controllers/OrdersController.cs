@@ -27,14 +27,6 @@
             this.userManager = userManager;
         }
 
-        public async Task<IActionResult> All()
-        {
-            var user = await this.userManager.GetUserAsync(this.User);
-
-            // var orders = this.ordersService.GetAllOrders(user.Id);
-            return this.View();
-        }
-
         public async Task<IActionResult> CompletedOrder()
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -54,7 +46,7 @@
             var user = await this.userManager.GetUserAsync(this.User);
 
             await this.ordersService.CreateOrderAsync(user.Id, input.Address);
-            return this.Redirect("/Orders/CompletedOrder");
+            return this.Redirect("/");
         }
     }
 }

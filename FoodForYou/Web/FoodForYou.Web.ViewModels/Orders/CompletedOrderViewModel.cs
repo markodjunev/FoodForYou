@@ -1,9 +1,9 @@
-﻿namespace FoodForYou.Web.ViewModels.Orders
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
+namespace FoodForYou.Web.ViewModels.Orders
+{
     public class CompletedOrderViewModel
     {
         public string Address { get; set; }
