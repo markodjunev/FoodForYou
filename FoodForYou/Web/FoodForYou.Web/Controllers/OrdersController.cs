@@ -27,6 +27,14 @@
             this.userManager = userManager;
         }
 
+        public async Task<IActionResult> CompletedOrder()
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            var latestOrder = this.ordersService.GetLatestOrder(user.Id);
+            return this.View(latestOrder);
+        }
+
         public IActionResult ProceedToOrder()
         {
             return this.View();
@@ -37,15 +45,8 @@
         {
             var user = await this.userManager.GetUserAsync(this.User);
 
-            /*var orderProducts = new AllProductsInCartViewModel
-            {
-                OrderedProducts = this.orderProductsService.GetAllByUserId<ProductInCartViewModel>(user.Id),
-            };
-
-            orderProducts.Sum = orderProducts.OrderedProducts.Sum(x => x.Price);*/
-
             await this.ordersService.CreateOrderAsync(user.Id, input.Address);
-            return this.Redirect("/");
+            return this.Redirect("/Orders/CompletedOrder");
         }
     }
 }

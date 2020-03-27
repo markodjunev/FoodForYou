@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
 
@@ -35,6 +37,23 @@
 
             await this.ordersRepository.AddAsync(order);
             await this.ordersRepository.SaveChangesAsync();
+        }
+
+        public CompletedOrderViewModel GetLatestOrder(string userId)
+        {
+            var latestOrder = this.ordersRepository.All()
+                .Where(x => x.CreatorId == userId)
+                .OrderByDescending(x => x.CreatedOn)
+                .Select(o => new CompletedOrderViewModel
+                {
+                    Address = o.Address,
+                    CreatorName = o.Creator.UserName,
+                    Price = o.Price,
+                    ArrivingTime = o.CreatedOn.AddMinutes(30).ToString("HH:mm", DateTimeFormatInfo.InvariantInfo),
+                })
+                .FirstOrDefault();
+
+            return latestOrder;
         }
     }
 }

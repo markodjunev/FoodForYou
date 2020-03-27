@@ -31,6 +31,7 @@
         public IActionResult AddToCart(int id)
         {
             this.ViewBag.ProductName = this.productsService.GetProductById(id).Name;
+            this.ViewBag.ProductImageUrl = this.productsService.GetProductById(id).ImageUrl;
             return this.View();
         }
 

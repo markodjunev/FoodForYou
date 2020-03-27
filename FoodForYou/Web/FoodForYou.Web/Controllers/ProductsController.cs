@@ -32,7 +32,6 @@
         {
             var product = this.productsService.GetById<ProductDetailsViewModel>(id);
 
-            // this.ViewBag.ProductName = product.Name;
             return this.View(product);
         }
 

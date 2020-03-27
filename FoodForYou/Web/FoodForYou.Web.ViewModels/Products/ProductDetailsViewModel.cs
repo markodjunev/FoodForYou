@@ -20,7 +20,5 @@
         public string ImageUrl { get; set; }
 
         public virtual ICollection<ApplicationUserFavouriteProduct> ApplicationUserFavouriteProducts { get; set; }
-
-        public virtual ICollection<Review> Reviews { get; set; }
     }
 }
