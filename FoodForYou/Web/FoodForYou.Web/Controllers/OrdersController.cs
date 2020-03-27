@@ -27,6 +27,14 @@
             this.userManager = userManager;
         }
 
+        public async Task<IActionResult> All()
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            // var orders = this.ordersService.GetAllOrders(user.Id);
+            return this.View();
+        }
+
         public async Task<IActionResult> CompletedOrder()
         {
             var user = await this.userManager.GetUserAsync(this.User);

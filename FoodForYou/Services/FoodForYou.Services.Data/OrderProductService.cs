@@ -63,7 +63,7 @@
                 .Where(x => x.CreatorId == order.CreatorId && x.Status == OrderProductStatus.Active)
                 .ToList();
 
-            order.Products = orderedProducts;
+            // order.Products = orderedProducts;
             order.Price = orderedProducts.Sum(x => x.Price);
 
             foreach (var product in orderedProducts)

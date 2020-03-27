@@ -39,6 +39,11 @@
             await this.ordersRepository.SaveChangesAsync();
         }
 
+        public IEnumerable<T> GetAllOrders<T>(string userId)
+        {
+            throw new NotImplementedException();
+        }
+
         public CompletedOrderViewModel GetLatestOrder(string userId)
         {
             var latestOrder = this.ordersRepository.All()
@@ -49,7 +54,7 @@
                     Address = o.Address,
                     CreatorName = o.Creator.UserName,
                     Price = o.Price,
-                    ArrivingTime = o.CreatedOn.AddMinutes(30).ToString("HH:mm", DateTimeFormatInfo.InvariantInfo),
+                    ArrivingTime = o.CreatedOn.AddMinutes(150).ToString("HH:mm", DateTimeFormatInfo.InvariantInfo),
                 })
                 .FirstOrDefault();
 

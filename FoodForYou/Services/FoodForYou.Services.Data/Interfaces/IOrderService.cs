@@ -14,5 +14,7 @@
         Task CreateOrderAsync(string userId, string address);
 
         CompletedOrderViewModel GetLatestOrder(string userId);
+
+        IEnumerable<T> GetAllOrders<T>(string userId);
     }
 }
