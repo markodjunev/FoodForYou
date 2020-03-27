@@ -46,7 +46,7 @@
             var user = await this.userManager.GetUserAsync(this.User);
 
             await this.ordersService.CreateOrderAsync(user.Id, input.Address);
-            return this.Redirect("/");
+            return this.Redirect("/Orders/CompletedOrder");
         }
     }
 }

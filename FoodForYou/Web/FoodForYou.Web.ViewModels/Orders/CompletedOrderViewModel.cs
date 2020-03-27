@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FoodForYou.Web.ViewModels.Orders
+﻿namespace FoodForYou.Web.ViewModels.Orders
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     public class CompletedOrderViewModel
     {
         public string Address { get; set; }

@@ -4,14 +4,16 @@ using FoodForYou.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FoodForYou.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200327152826_ChangeOrder")]
+    partial class ChangeOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -272,9 +274,6 @@ namespace FoodForYou.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -292,8 +291,6 @@ namespace FoodForYou.Data.Migrations
                     b.HasIndex("CreatorId");
 
                     b.HasIndex("IsDeleted");
-
-                    b.HasIndex("OrderId");
 
                     b.HasIndex("ProductId");
 
@@ -543,10 +540,6 @@ namespace FoodForYou.Data.Migrations
                     b.HasOne("FoodForYou.Data.Models.ApplicationUser", "Creator")
                         .WithMany("OrderProducts")
                         .HasForeignKey("CreatorId");
-
-                    b.HasOne("FoodForYou.Data.Models.Order", "Order")
-                        .WithMany("Products")
-                        .HasForeignKey("OrderId");
 
                     b.HasOne("FoodForYou.Data.Models.Product", "Product")
                         .WithMany()

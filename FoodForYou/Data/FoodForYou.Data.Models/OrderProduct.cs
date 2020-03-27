@@ -17,6 +17,10 @@
 
         public virtual ApplicationUser Creator { get; set; }
 
+        public int? OrderId { get; set; }
+
+        public virtual Order Order { get; set; }
+
         public OrderProductStatus Status { get; set; }
 
         public int Quantity { get; set; }
