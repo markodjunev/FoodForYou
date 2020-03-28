@@ -18,7 +18,6 @@
                     <p class="card-subtitle mb-2 text-muted">@Model.Price€</p>
                     <p class="card-text">@Model.Description</p>
                     <div class="d-flex justify-content-between">
-                        <a asp-controller="Products" asp-action="Details" asp-route-id="@Model" class="btn btn-primary">Add review</a>
                         <a asp-controller="Reviews" asp-action="All" asp-route-id="@Model" class="btn btn-primary">All reviews</a>
                         <a asp-controller="OrderProducts" asp-action="AddToCart" asp-route-id="@Model.Id" class="btn btn-primary">Add to Cart</a>
                     </div>

@@ -39,9 +39,26 @@
             await this.ordersRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAllOrders<T>(string userId)
+        public List<AllOrdersViewModel> GetAllOrders(string userId)
         {
-            throw new NotImplementedException();
+            var orders = this.ordersRepository.All()
+                .Where(x => x.CreatorId == userId)
+                .OrderByDescending(x => x.CreatedOn)
+                .Select(o => new AllOrdersViewModel
+                {
+                    Address = o.Address,
+                    Price = o.Price,
+                    CreatedOn = o.CreatedOn.ToString(@"MM\/dd\/yyyy HH:mm", DateTimeFormatInfo.InvariantInfo),
+                    OrderProducts = o.Products.Select(op => new OrderProductsViewModel
+                    {
+                        ProductName = op.Product.Name,
+                        Price = op.Price,
+                        Quantity = op.Quantity,
+                    }).ToList(),
+                })
+                .ToList();
+
+            return orders;
         }
 
         public CompletedOrderViewModel GetLatestOrder(string userId)
@@ -60,6 +77,5 @@
 
             return latestOrder;
         }
-
     }
 }

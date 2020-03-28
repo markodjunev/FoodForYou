@@ -1,0 +1,56 @@
+﻿@model FoodForYou.Web.ViewModels.Orders.OrdersViewModel
+@{
+    ViewData["Title"] = "My Orders";
+    var count = Model.AllOrders.Count();
+    int currentCount = 0;
+}
+
+@if (@Model.AllOrders.Count() == 0)
+{
+    <h1>You haven't made any orders yet.</h1>
+}
+else
+{
+
+    <h1 class="text-center m-4">My Orders</h1>
+
+
+    @foreach (var order in Model.AllOrders)
+    {
+
+        <div class="d-flex justify-content-between">
+            <div>Order #@(count--)</div>
+            <div>Address - @order.Address, CreatedOn - @order.CreatedOn</div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var orderProduct in order.OrderProducts)
+                {
+                    <tr>
+                        <th scope="row">@(++currentCount)</th>
+                        <td>@orderProduct.ProductName</td>
+                        <td>@orderProduct.Quantity</td>
+                        <td>@orderProduct.Price€</td>
+                    </tr>
+                }
+                @{ currentCount = 0;}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Total Sum: @order.Price€</th>
+                </tr>
+            </tfoot>
+        </table>
+    }
+}
