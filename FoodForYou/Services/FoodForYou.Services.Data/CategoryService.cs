@@ -20,13 +20,6 @@
             this.categoriesRepository = categoriesRepository;
         }
 
-        public void ArchiveCategory(string categoryName)
-        {
-            var category = this.categoriesRepository.All().FirstOrDefault(c => c.Name == categoryName);
-
-            category.IsDeleted = true;
-        }
-
         public async Task CreateAsync(string name, string imageUrl)
         {
             var category = new Category

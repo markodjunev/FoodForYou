@@ -68,6 +68,7 @@
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IOrderProductService, OrderProductService>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IFavouriteProductService, FavouriteProductService>();
 
             Account account = new Account(
                              this.configuration["Cloudinary:AppName"],

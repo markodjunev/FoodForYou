@@ -1,37 +1,47 @@
 ﻿@using FoodForYou.Common
+@using FoodForYou.Data.Models
+@using Microsoft.AspNetCore.Identity
 @model FoodForYou.Web.ViewModels.Products.ProductDetailsViewModel
+@inject UserManager<ApplicationUser> userManager
 @{
     this.ViewBag.ProductName = Model.Name;
     ViewData["Title"] = this.ViewBag.ProductName;
 }
 
 <h1 class="text-left">@this.ViewBag.ProductsName</h1>
-    <div class="row">
-        <div class="col-md-4">
+<div class="row">
+    <div class="col-md-4">
 
-        </div>
-        <div class="col-md-6">
-            <div class="card" style="width: 23.3rem;">
-                <img src="@Model.ImageUrl" class="card-img-top" alt="15rem">
-                <div class="card-body">
-                    <h5 class="card-title">@Model.Name</h5>
-                    <p class="card-subtitle mb-2 text-muted">@Model.Price€</p>
-                    <p class="card-text">@Model.Description</p>
-                    <div class="d-flex justify-content-between">
-                        <a asp-controller="Reviews" asp-action="All" asp-route-id="@Model" class="btn btn-primary">All reviews</a>
-                        <a asp-controller="OrderProducts" asp-action="AddToCart" asp-route-id="@Model.Id" class="btn btn-primary">Add to Cart</a>
-                    </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card" style="width: 23.3rem;">
+            <img src="@Model.ImageUrl" class="card-img-top" alt="15rem">
+            <div class="card-body">
+                <h5 class="card-title">@Model.Name</h5>
+                <p class="card-subtitle mb-2 text-muted">@Model.Price€</p>
+                <p class="card-text">@Model.Description</p>
+                <div class="d-flex justify-content-between">
+                    <a asp-controller="Reviews" asp-action="All" asp-route-id="@Model" class="btn btn-primary">All reviews</a>
+                    <a asp-controller="OrderProducts" asp-action="AddToCart" asp-route-id="@Model.Id" class="btn btn-primary">Add to Cart</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-2">
-            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-            {
-                <a class="btn btn-danger">Delete product</a>
-            }
-            else if (this.User.IsInRole(GlobalConstants.UserRoleName))
-            {
-                <a class="btn btn-primary">Add to favourites</a>
-            }
-        </div>
     </div>
+    <div class="col-md-2">
+        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+        {
+            <a class="btn btn-danger">Delete product</a>
+        }
+        else if (this.User.IsInRole(GlobalConstants.UserRoleName))
+        {
+            if (@Model.ApplicationUserFavouriteProducts.Any(x => x.ProductId == Model.Id && x.ApplicationUserId == this.userManager.GetUserId(this.User)))
+            {
+                <a asp-controller="FavouriteProducts" asp-action="RemoveFavouriteProduct" asp-route-productId="@Model.Id" class="btn btn-outline-info">Remove from favourites</a>
+            }
+            else
+            {
+                <a asp-controller="FavouriteProducts" asp-action="AddProductToUser" asp-route-productId="@Model.Id" class="btn btn-outline-primary">Add to favourites</a>
+            }
+        }
+    </div>
+</div>

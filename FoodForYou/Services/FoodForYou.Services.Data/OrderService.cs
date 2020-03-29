@@ -48,7 +48,7 @@
                 {
                     Address = o.Address,
                     Price = o.Price,
-                    CreatedOn = o.CreatedOn.ToString(@"MM\/dd\/yyyy HH:mm", DateTimeFormatInfo.InvariantInfo),
+                    CreatedOn = o.CreatedOn.AddHours(3).ToString(@"MM\/dd\/yyyy HH:mm", DateTimeFormatInfo.InvariantInfo),
                     OrderProducts = o.Products.Select(op => new OrderProductsViewModel
                     {
                         ProductName = op.Product.Name,
@@ -71,7 +71,7 @@
                     Address = o.Address,
                     CreatorName = o.Creator.UserName,
                     Price = o.Price,
-                    ArrivingTime = o.CreatedOn.AddMinutes(150).ToString("HH:mm", DateTimeFormatInfo.InvariantInfo),
+                    ArrivingTime = o.CreatedOn.AddMinutes(210).ToString("HH:mm", DateTimeFormatInfo.InvariantInfo),
                 })
                 .FirstOrDefault();
 

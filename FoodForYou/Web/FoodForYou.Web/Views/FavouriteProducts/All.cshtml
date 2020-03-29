@@ -1,0 +1,22 @@
+﻿@model FoodForYou.Web.ViewModels.FavouriteProducts.AllFavouriteProductsViewModel
+@{
+    ViewData["Title"] = "Favourite Products";
+}
+
+<div class="row">
+
+    @foreach (var product in Model.Products)
+    {
+        <div class="card" style="width: 16.3rem;">
+            <img src="@product.ImageUrl" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">@product.Name</h5>
+                <p class="card-subtitle mb-2 text-muted">@product.Price€</p>
+                <p class="card-text">@product.Description</p>
+                <a asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId" class="btn btn-primary">Details</a>
+            </div>
+        </div>
+    }
+</div>
+
+<hr class="m-2 my-4">

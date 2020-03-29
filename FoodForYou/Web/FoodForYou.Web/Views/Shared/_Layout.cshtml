@@ -40,13 +40,22 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="All">Menu</a>
                         </li>
-                        @if (this.User.Identity.IsAuthenticated)
+                        @if (this.User.IsInRole(GlobalConstants.UserRoleName))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="OrderProducts" asp-action="All">Cart</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="All">My Orders</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="FavouriteProducts" asp-action="All">Favourite Products</a>
+                            </li>
+                        }
+                        else if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="LatestOrders">Latest Orders</a>
                             </li>
                         }
                     </ul>
