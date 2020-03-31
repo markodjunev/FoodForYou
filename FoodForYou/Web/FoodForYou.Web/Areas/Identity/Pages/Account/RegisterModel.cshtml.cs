@@ -62,11 +62,6 @@
             public string UserName { get; set; }
 
             [Required]
-            [Phone]
-            [Display(Name = "Phone Number")]
-            public string PhoneNumber { get; set; }
-
-            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -100,9 +95,9 @@
                     FirstName = this.Input.FirstName,
                     LastName = this.Input.LastName,
                     UserName = this.Input.UserName,
-                    PhoneNumber = this.Input.PhoneNumber,
                     Email = this.Input.Email,
                 };
+
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
                 if (result.Succeeded)
                 {

@@ -33,7 +33,7 @@
             await this.favoruiteProductsRepository.SaveChangesAsync();
         }
 
-        public List<FavouriteProductViewModel> GetAllFavouriteProducts(string userId)
+        public IEnumerable<FavouriteProductViewModel> GetAllFavouriteProducts(string userId)
         {
             var favProducts = this.favoruiteProductsRepository.All()
                 .Where(x => x.ApplicationUserId == userId)

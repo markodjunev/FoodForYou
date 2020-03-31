@@ -39,7 +39,7 @@
             await this.ordersRepository.SaveChangesAsync();
         }
 
-        public List<AllOrdersViewModel> GetAllOrders(string userId)
+        public IEnumerable<AllOrdersViewModel> GetAllOrders(string userId)
         {
             var orders = this.ordersRepository.All()
                 .Where(x => x.CreatorId == userId)

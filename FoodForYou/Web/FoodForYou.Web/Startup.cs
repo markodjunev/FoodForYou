@@ -20,6 +20,7 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -50,7 +51,10 @@
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()); // CSFR
+            });
             services.AddRazorPages();
 
             services.AddSingleton(this.configuration);
@@ -61,7 +65,7 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
@@ -70,6 +74,7 @@
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IFavouriteProductService, FavouriteProductService>();
 
+            // services.AddTransient<IReviewService, ReviewService>();
             Account account = new Account(
                              this.configuration["Cloudinary:AppName"],
                              this.configuration["Cloudinary:AppKey"],

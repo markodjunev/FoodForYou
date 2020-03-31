@@ -14,6 +14,6 @@
 
         CompletedOrderViewModel GetLatestOrder(string userId);
 
-        List<AllOrdersViewModel> GetAllOrders(string userId);
+        IEnumerable<AllOrdersViewModel> GetAllOrders(string userId);
     }
 }

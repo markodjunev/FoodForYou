@@ -13,6 +13,6 @@
 
         Task RemoveFavouriteProduct(int productId, string userId);
 
-        List<FavouriteProductViewModel> GetAllFavouriteProducts(string userId);
+        IEnumerable<FavouriteProductViewModel> GetAllFavouriteProducts(string userId);
     }
 }

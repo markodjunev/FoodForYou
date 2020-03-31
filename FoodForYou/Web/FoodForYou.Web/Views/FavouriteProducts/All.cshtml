@@ -3,20 +3,28 @@
     ViewData["Title"] = "Favourite Products";
 }
 
-<div class="row">
+@if (Model.Products.Count() > 0)
+{
+    <div class="row">
 
-    @foreach (var product in Model.Products)
-    {
-        <div class="card" style="width: 16.3rem;">
-            <img src="@product.ImageUrl" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">@product.Name</h5>
-                <p class="card-subtitle mb-2 text-muted">@product.Price€</p>
-                <p class="card-text">@product.Description</p>
-                <a asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId" class="btn btn-primary">Details</a>
+        @foreach (var product in Model.Products)
+        {
+            <div class="card" style="width: 16.3rem;">
+                <img src="@product.ImageUrl" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@product.Name</h5>
+                    <p class="card-subtitle mb-2 text-muted">@product.Price€</p>
+                    <p class="card-text">@product.Description</p>
+                    <a asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId" class="btn btn-primary">Details</a>
+                </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
+}
+
+else
+{
+<h1 class="text-center">You don't have any favourite products yet. Please see our <a class="alert-link" asp-controller="Categories" asp-action="All">Menu</a></h1>
+}
 
 <hr class="m-2 my-4">
