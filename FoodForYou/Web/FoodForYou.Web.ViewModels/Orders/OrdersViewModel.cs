@@ -7,5 +7,9 @@
     public class OrdersViewModel
     {
         public IEnumerable<AllOrdersViewModel> AllOrders { get; set; }
+
+        public int CurrentPage { get; set; }
+
+        public int PagesCount { get; set; }
     }
 }

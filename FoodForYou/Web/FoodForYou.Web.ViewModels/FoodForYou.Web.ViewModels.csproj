@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\FoodForYou.Data.Models\FoodForYou.Data.Models.csproj" />
     <ProjectReference Include="..\..\Services\FoodForYou.Services.Mapping\FoodForYou.Services.Mapping.csproj" />
+    <ProjectReference Include="..\FoodForYou.Web.Infrastructure\FoodForYou.Web.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

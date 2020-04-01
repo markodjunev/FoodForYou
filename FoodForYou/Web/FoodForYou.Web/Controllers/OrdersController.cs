@@ -16,6 +16,8 @@
     [Authorize]
     public class OrdersController : BaseController
     {
+        private const int ItemsPerPage = 5;
+
         private readonly IOrderService ordersService;
         private readonly IOrderProductService orderProductsService;
         private readonly UserManager<ApplicationUser> userManager;
@@ -27,14 +29,29 @@
             this.userManager = userManager;
         }
 
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(int page = 1)
         {
             var user = await this.userManager.GetUserAsync(this.User);
 
             var allOrders = new OrdersViewModel
             {
-                AllOrders = this.ordersService.GetAllOrders(user.Id),
+                AllOrders = this.ordersService.GetAllOrders(user.Id, ItemsPerPage, (page - 1) * ItemsPerPage),
             };
+
+            var count = this.ordersService.GetAllOrdersCountByUserId(user.Id);
+
+            allOrders.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
+            if (allOrders.PagesCount == 0)
+            {
+                allOrders.PagesCount = 1;
+            }
+
+            allOrders.CurrentPage = page;
+
+            if (allOrders.CurrentPage > allOrders.PagesCount)
+            {
+                return this.BadRequest();
+            }
 
             return this.View(allOrders);
         }

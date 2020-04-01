@@ -39,7 +39,7 @@
             await this.ordersRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<AllOrdersViewModel> GetAllOrders(string userId)
+        public IEnumerable<AllOrdersViewModel> GetAllOrders(string userId, int? take = null, int skip = 0)
         {
             var orders = this.ordersRepository.All()
                 .Where(x => x.CreatorId == userId)
@@ -48,17 +48,30 @@
                 {
                     Address = o.Address,
                     Price = o.Price,
-                    CreatedOn = o.CreatedOn.AddHours(3).ToString(@"MM\/dd\/yyyy HH:mm", DateTimeFormatInfo.InvariantInfo),
+                    CreatedOn = o.CreatedOn.ToString(@"MM\/dd\/yyyy HH:mm", DateTimeFormatInfo.InvariantInfo),
                     OrderProducts = o.Products.Select(op => new OrderProductsViewModel
                     {
                         ProductName = op.Product.Name,
                         Price = op.Price,
                         Quantity = op.Quantity,
-                    }).ToList(),
+                    })
+                    .ToList(),
                 })
-                .ToList();
+                .Skip(skip);
 
-            return orders;
+            if (take.HasValue)
+            {
+                orders = orders.Take(take.Value);
+            }
+
+            return orders.ToList();
+        }
+
+        public int GetAllOrdersCountByUserId(string userId)
+        {
+            var orders = this.ordersRepository.All().Where(x => x.CreatorId == userId);
+
+            return orders.Count();
         }
 
         public CompletedOrderViewModel GetLatestOrder(string userId)
