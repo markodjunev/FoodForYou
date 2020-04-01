@@ -1,6 +1,6 @@
-﻿@model FoodForYou.Web.ViewModels.Orders.OrdersViewModel
+﻿@model FoodForYou.Web.ViewModels.Orders.LatestOrdersViewModel
 @{
-    ViewData["Title"] = "My Orders";
+    ViewData["Title"] = "Latest Orders";
     int currentCount = 0;
 }
 
@@ -11,14 +11,14 @@
 else
 {
 
-    <h1 class="text-center m-4">My Orders</h1>
+    <h1 class="text-center m-4">Latest Orders</h1>
 
 
     @foreach (var order in Model.AllOrders)
     {
 
         <div class="d-flex justify-content-between">
-            <div>Order #</div>
+            <div>Order # created by @order.CreatorUserName</div>
             <div>Address - @order.Address, CreatedOn - <time datetime="@order.CreatedOn.ToString("O")"></time></div>
         </div>
         <table class="table">

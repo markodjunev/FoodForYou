@@ -4,14 +4,12 @@
     using System.Collections.Generic;
     using System.Text;
 
-    public class CompletedOrderViewModel
+    public class LatestOrderProductsViewModel
     {
-        public string Address { get; set; }
+        public string ProductName { get; set; }
 
-        public string CreatorName { get; set; }
+        public int Quantity { get; set; }
 
         public decimal Price { get; set; }
-
-        public DateTime ArrivingTime { get; set; }
     }
 }

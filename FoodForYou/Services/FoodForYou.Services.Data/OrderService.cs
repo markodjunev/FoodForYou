@@ -39,7 +39,34 @@
             await this.ordersRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<AllOrdersViewModel> GetAllOrders(string userId, int? take = null, int skip = 0)
+        public IEnumerable<AllLatestOrdersViewModel> GetAllLatestOrders(string userId, int? take = null, int skip = 0)
+        {
+            var allOrders = this.ordersRepository.All()
+                .OrderByDescending(x => x.CreatedOn)
+                .Select(o => new AllLatestOrdersViewModel
+                {
+                    Address = o.Address,
+                    Price = o.Price,
+                    CreatedOn = o.CreatedOn,
+                    CreatorUserName = o.Creator.UserName,
+                    OrderProducts = o.Products.Select(op => new LatestOrderProductsViewModel
+                    {
+                        ProductName = op.Product.Name,
+                        Price = op.Price,
+                        Quantity = op.Quantity,
+                    })
+                    .ToList(),
+                }).Skip(skip);
+
+            if (take.HasValue)
+            {
+                allOrders = allOrders.Take(take.Value);
+            }
+
+            return allOrders.ToList();
+        }
+
+        public IEnumerable<AllOrdersViewModel> GetAllOrdersByUserId(string userId, int? take = null, int skip = 0)
         {
             var orders = this.ordersRepository.All()
                 .Where(x => x.CreatorId == userId)
@@ -48,7 +75,7 @@
                 {
                     Address = o.Address,
                     Price = o.Price,
-                    CreatedOn = o.CreatedOn.ToString(@"MM\/dd\/yyyy HH:mm", DateTimeFormatInfo.InvariantInfo),
+                    CreatedOn = o.CreatedOn,
                     OrderProducts = o.Products.Select(op => new OrderProductsViewModel
                     {
                         ProductName = op.Product.Name,
@@ -65,6 +92,13 @@
             }
 
             return orders.ToList();
+        }
+
+        public int GetAllOrdersCount()
+        {
+            var orders = this.ordersRepository.All();
+
+            return orders.Count();
         }
 
         public int GetAllOrdersCountByUserId(string userId)
@@ -84,7 +118,7 @@
                     Address = o.Address,
                     CreatorName = o.Creator.UserName,
                     Price = o.Price,
-                    ArrivingTime = o.CreatedOn.AddMinutes(210).ToString("HH:mm", DateTimeFormatInfo.InvariantInfo),
+                    ArrivingTime = o.CreatedOn.AddMinutes(30),
                 })
                 .FirstOrDefault();
 

@@ -14,8 +14,12 @@
 
         CompletedOrderViewModel GetLatestOrder(string userId);
 
-        IEnumerable<AllOrdersViewModel> GetAllOrders(string userId, int? take = null, int skip = 0);
+        IEnumerable<AllOrdersViewModel> GetAllOrdersByUserId(string userId, int? take = null, int skip = 0);
 
         int GetAllOrdersCountByUserId(string userId);
+
+        IEnumerable<AllLatestOrdersViewModel> GetAllLatestOrders(string userId, int? take = null, int skip = 0);
+
+        int GetAllOrdersCount();
     }
 }

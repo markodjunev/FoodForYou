@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using FoodForYou.Common;
     using FoodForYou.Data.Models;
     using FoodForYou.Services.Data.Interfaces;
     using FoodForYou.Web.ViewModels.OrderProducts;
@@ -35,7 +36,7 @@
 
             var allOrders = new OrdersViewModel
             {
-                AllOrders = this.ordersService.GetAllOrders(user.Id, ItemsPerPage, (page - 1) * ItemsPerPage),
+                AllOrders = this.ordersService.GetAllOrdersByUserId(user.Id, ItemsPerPage, (page - 1) * ItemsPerPage),
             };
 
             var count = this.ordersService.GetAllOrdersCountByUserId(user.Id);
@@ -62,6 +63,34 @@
 
             var latestOrder = this.ordersService.GetLatestOrder(user.Id);
             return this.View(latestOrder);
+        }
+
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        public async Task<IActionResult> LatestOrders(int page = 1)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            var latestOrders = new LatestOrdersViewModel
+            {
+                AllOrders = this.ordersService.GetAllLatestOrders(user.Id, ItemsPerPage, (page - 1) * ItemsPerPage),
+            };
+
+            var count = this.ordersService.GetAllOrdersCount();
+
+            latestOrders.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
+            if (latestOrders.PagesCount == 0)
+            {
+                latestOrders.PagesCount = 1;
+            }
+
+            latestOrders.CurrentPage = page;
+
+            if (latestOrders.CurrentPage > latestOrders.PagesCount)
+            {
+                return this.BadRequest();
+            }
+
+            return this.View(latestOrders);
         }
 
         public IActionResult ProceedToOrder()
