@@ -42,7 +42,7 @@
             </div>
             <div class="form-group">
                 <div class="d-flex justify-content-center">
-                    <label asp-for="@Model.ImageUrl" class="font-weight-bold"></label>
+                    <label asp-for="@Model.ImageUrl" class="font-weight-bold">Please upload a photo with size 512x342</label>
                 </div>
                 <input asp-for="@Model.ImageUrl" class="form-control-file" type="file" placeholder="Image..." />
                 <span asp-validation-for="@Model.ImageUrl" class="text-danger"></span>

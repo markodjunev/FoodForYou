@@ -16,5 +16,7 @@
         Product GetProductById(int id);
 
         decimal GetPriceById(int id);
+
+        Task DeleteProduct(int id);
     }
 }

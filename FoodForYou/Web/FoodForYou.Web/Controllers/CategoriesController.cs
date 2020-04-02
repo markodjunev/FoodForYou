@@ -17,36 +17,10 @@
     public class CategoriesController : BaseController
     {
         private readonly ICategoryService categoryService;
-        private readonly ICloudinaryService cloudinaryService;
 
-        public CategoriesController(ICategoryService categoryService, ICloudinaryService cloudinaryService)
+        public CategoriesController(ICategoryService categoryService)
         {
             this.categoryService = categoryService;
-            this.cloudinaryService = cloudinaryService;
-        }
-
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        public IActionResult Create()
-        {
-            return this.View();
-        }
-
-        [HttpPost]
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        public async Task<IActionResult> Create(CreateCategoryInputModel input)
-        {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View(input);
-            }
-
-            string pictureUrl = await this.cloudinaryService.UploadPictureAsync(
-                input.ImageUrl,
-                input.Name);
-
-            await this.categoryService.CreateAsync(input.Name, pictureUrl);
-
-            return this.Redirect("/Categories/All");
         }
 
         [AllowAnonymous]

@@ -37,6 +37,15 @@
             return product;
         }
 
+        public async Task DeleteProduct(int id)
+        {
+            var product = this.GetProductById(id);
+
+            product.IsDeleted = true;
+            this.productsRepository.Update(product);
+            await this.productsRepository.SaveChangesAsync();
+        }
+
         public IEnumerable<T> GetAll<T>(string categoryName)
         {
             IQueryable products = this.productsRepository.All()

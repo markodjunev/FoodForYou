@@ -30,7 +30,7 @@
     <div class="col-md-2">
         @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
         {
-            <a class="btn btn-danger">Delete product</a>
+            <a asp-area="Administration" asp-controller="Products" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete product</a>
         }
         else if (this.User.IsInRole(GlobalConstants.UserRoleName))
         {
