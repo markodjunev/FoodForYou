@@ -48,6 +48,7 @@
             }
 
             latestOrders.CurrentPage = page;
+            latestOrders.OrdersCount = count;
 
             if (latestOrders.CurrentPage > latestOrders.PagesCount)
             {
