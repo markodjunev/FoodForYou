@@ -73,6 +73,7 @@
             services.AddTransient<IOrderProductService, OrderProductService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IFavouriteProductService, FavouriteProductService>();
+            services.AddTransient<IReviewService, ReviewService>();
 
             // services.AddTransient<IReviewService, ReviewService>();
             Account account = new Account(

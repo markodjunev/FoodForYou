@@ -1,0 +1,15 @@
+﻿@model FoodForYou.Web.ViewModels.Reviews.AllReviewsViewModel
+@{ 
+    ViewData["Title"] = "Reviews";
+}
+
+    <h1 class="text-center">@this.ViewBag.ProductName</h1>
+
+<hr class="my-4"/>
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-7 ml-5">
+        <a asp-controller="Reviews" asp-action="Add" asp-route-id="@Model.ProductId" class="btn btn-primary">Add review</a>
+    </div>
+</div>
