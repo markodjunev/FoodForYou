@@ -30,6 +30,11 @@
 
         public IActionResult Details(int id)
         {
+            if (this.productsService.GetProductById(id) == null)
+            {
+                return this.BadRequest();
+            }
+
             var product = this.productsService.GetById<ProductDetailsViewModel>(id);
 
             // this.ViewBag.ProductName = product.Name;
@@ -38,6 +43,11 @@
 
         public IActionResult ByCategory(string categoryName)
         {
+            if (!this.categoriesService.Exist(categoryName))
+            {
+                return this.BadRequest();
+            }
+
             this.ViewBag.CategoryName = categoryName;
 
             var allProductsViewModel = new AllProductsViewModel

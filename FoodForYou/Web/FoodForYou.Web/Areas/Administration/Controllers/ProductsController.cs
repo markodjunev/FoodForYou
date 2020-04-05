@@ -29,6 +29,11 @@
 
         public IActionResult Create(string categoryName)
         {
+            if (!this.categoriesService.Exist(categoryName))
+            {
+                return this.BadRequest();
+            }
+
             this.ViewBag.CategoryName = categoryName;
             return this.View();
         }

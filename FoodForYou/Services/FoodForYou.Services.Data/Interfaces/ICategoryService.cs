@@ -14,5 +14,7 @@
         IEnumerable<T> GetAll<T>();
 
         int GetIdByName(string categoryName);
+
+        bool Exist(string categoryName);
     }
 }

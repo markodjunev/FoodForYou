@@ -32,6 +32,18 @@
             await this.categoriesRepository.SaveChangesAsync();
         }
 
+        public bool Exist(string categoryName)
+        {
+            var category = this.categoriesRepository.All().FirstOrDefault(x => x.Name == categoryName);
+
+            if (category == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public IEnumerable<T> GetAll<T>()
         {
             IQueryable<Category> categories = this.categoriesRepository.All();

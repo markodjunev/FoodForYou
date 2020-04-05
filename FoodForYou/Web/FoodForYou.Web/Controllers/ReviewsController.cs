@@ -28,6 +28,11 @@
 
         public IActionResult Add(int id)
         {
+            if (this.productsService.GetProductById(id) == null)
+            {
+                return this.BadRequest();
+            }
+
             this.ViewBag.ProductName = this.productsService.GetProductById(id).Name;
             return this.View();
         }
@@ -43,6 +48,11 @@
 
         public IActionResult All(int id)
         {
+            if (this.productsService.GetProductById(id) == null)
+            {
+                return this.BadRequest();
+            }
+
             this.ViewBag.ProductName = this.productsService.GetProductById(id).Name;
             var viewModel = new AllReviewsViewModel
             {
