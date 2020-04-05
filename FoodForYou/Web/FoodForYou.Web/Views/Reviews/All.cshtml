@@ -32,6 +32,12 @@
                                         <a asp-area="Administration" asp-controller="Reviews" asp-action="Delete" asp-route-id="@review.Id" class="btn btn-danger">Delete</a>
                                     </div>
                                 }
+                                else if (this.User.Identity.Name == @review.CreatorUserName)
+                                {
+                                    <div class="px-4 pt-3">
+                                        <a asp-area="" asp-controller="Reviews" asp-action="Remove" asp-route-id="@review.Id" class="btn btn-danger">Delete</a>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>

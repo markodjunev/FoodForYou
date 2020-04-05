@@ -45,6 +45,19 @@
             return review.ProductId;
         }
 
+        public bool ExistReview(int id)
+        {
+            var review = this.reviewsRepository.All()
+                .FirstOrDefault(r => r.Id == id);
+
+            if (review == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public IEnumerable<ReviewViewModel> GetAllReviewsByProductId(int productId)
         {
             var reviews = this.reviewsRepository.All()

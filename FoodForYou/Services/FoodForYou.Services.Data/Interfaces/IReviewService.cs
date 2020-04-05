@@ -14,5 +14,7 @@
         IEnumerable<ReviewViewModel> GetAllReviewsByProductId(int productId);
 
         Task<int> DeleteAsync(int id);
+
+        bool ExistReview(int id);
     }
 }

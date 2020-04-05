@@ -61,5 +61,17 @@
             };
             return this.View(viewModel);
         }
+
+        public async Task<IActionResult> Remove(int id)
+        {
+            if (!this.reviewsService.ExistReview(id))
+            {
+                return this.BadRequest();
+            }
+
+            var productId = await this.reviewsService.DeleteAsync(id);
+
+            return this.RedirectToAction("All", "Reviews", new { id = productId });
+        }
     }
 }
