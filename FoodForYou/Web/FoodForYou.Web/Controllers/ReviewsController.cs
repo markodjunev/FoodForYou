@@ -47,6 +47,7 @@
             var viewModel = new AllReviewsViewModel
             {
                 ProductId = id,
+                Reviews = this.reviewsService.GetAllReviewsByProductId(id),
             };
             return this.View(viewModel);
         }

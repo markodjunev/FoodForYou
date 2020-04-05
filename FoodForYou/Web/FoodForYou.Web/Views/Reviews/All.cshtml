@@ -1,11 +1,52 @@
-﻿@model FoodForYou.Web.ViewModels.Reviews.AllReviewsViewModel
-@{ 
+﻿@using FoodForYou.Common
+@model FoodForYou.Web.ViewModels.Reviews.AllReviewsViewModel
+@{
     ViewData["Title"] = "Reviews";
 }
 
-    <h1 class="text-center">@this.ViewBag.ProductName</h1>
+<div class="text-center">
+    <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.ProductId" class="h2">@this.ViewBag.ProductName</a>
+</div>
 
-<hr class="my-4"/>
+<hr class="my-4" />
+
+
+@foreach (var review in Model.Reviews)
+{
+    <div class="container-fluid mt-100">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <div class="media flex-wrap w-100 align-items-center">
+                            <div class="media-body ml-3">
+                                <i class="fas fa-user">@review.CreatorUserName</i>
+                                <div class="text-muted small">
+                                    <i class="fas fa-calendar-alt"><time datetime="@review.CreatedOn.ToString("O")"></time></i>
+                                </div>
+                            </div>
+                            <div class="text-warning small ml-3">
+                                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                                {
+                                    <div class="px-4 pt-3">
+                                        <a asp-area="Administration" asp-controller="Reviews" asp-action="Delete" asp-route-id="@review.Id" class="btn btn-danger">Delete</a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <article>
+                            @Html.Raw(review.SanitizedContent)
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<hr class="my-4" />
 
 <div class="row">
     <div class="col-md-4"></div>
