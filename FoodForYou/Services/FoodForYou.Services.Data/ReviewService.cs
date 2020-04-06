@@ -58,7 +58,7 @@
             return true;
         }
 
-        public IEnumerable<ReviewViewModel> GetAllReviewsByProductId(int productId)
+        public IEnumerable<ReviewViewModel> GetAllReviewsByProductId(int productId, int? take = null, int skip = 0)
         {
             var reviews = this.reviewsRepository.All()
                 .Where(x => x.ProductId == productId)
@@ -71,9 +71,22 @@
                     CreatorId = r.CreatorId,
                     CreatorUserName = r.Creator.UserName,
                     ProductId = r.ProductId,
-                }).ToList();
+                }).Skip(skip);
 
-            return reviews;
+            if (take.HasValue)
+            {
+                reviews = reviews.Take(take.Value);
+            }
+
+            return reviews.ToList();
+        }
+
+        public int GetAllReviewsCountByProductId(int id)
+        {
+            var reviews = this.reviewsRepository.All()
+                .Where(r => r.ProductId == id).ToList();
+
+            return reviews.Count();
         }
     }
 }

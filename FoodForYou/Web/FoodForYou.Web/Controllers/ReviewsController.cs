@@ -15,6 +15,8 @@
     [Authorize]
     public class ReviewsController : BaseController
     {
+        private const int ItemsPerPage = 5;
+
         private readonly IReviewService reviewsService;
         private readonly IProductService productsService;
         private readonly UserManager<ApplicationUser> userManager;
@@ -40,13 +42,18 @@
         [HttpPost]
         public async Task<IActionResult> Add(int id, CreateReviewInputModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
             var user = await this.userManager.GetUserAsync(this.User);
             await this.reviewsService.CreateAsync(id, user.Id, input.Text);
 
             return this.RedirectToAction("All", "Reviews", new { id = id });
         }
 
-        public IActionResult All(int id)
+        public IActionResult All(int id, int page = 1)
         {
             if (this.productsService.GetProductById(id) == null)
             {
@@ -57,8 +64,20 @@
             var viewModel = new AllReviewsViewModel
             {
                 ProductId = id,
-                Reviews = this.reviewsService.GetAllReviewsByProductId(id),
+                Reviews = this.reviewsService.GetAllReviewsByProductId(id, ItemsPerPage, (page - 1) * ItemsPerPage),
             };
+
+            var count = this.reviewsService.GetAllReviewsCountByProductId(id);
+
+            viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
+            if (viewModel.PagesCount == 0)
+            {
+                viewModel.PagesCount = 1;
+            }
+
+            viewModel.CurrentPage = page;
+            viewModel.ReviewsCount = count;
+
             return this.View(viewModel);
         }
 

@@ -11,10 +11,12 @@
     {
         Task CreateAsync(int productId, string creatorId, string text);
 
-        IEnumerable<ReviewViewModel> GetAllReviewsByProductId(int productId);
+        IEnumerable<ReviewViewModel> GetAllReviewsByProductId(int productId, int? take = null, int skip = 0);
 
         Task<int> DeleteAsync(int id);
 
         bool ExistReview(int id);
+
+        int GetAllReviewsCountByProductId(int id);
     }
 }
