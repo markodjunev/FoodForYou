@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
 
     using FoodForYou.Data.Models;
+    using FoodForYou.Web.ViewModels.Products;
 
     public interface IProductService
     {
@@ -18,5 +19,9 @@
         decimal GetPriceById(int id);
 
         Task DeleteProduct(int id);
+
+        UpdateProductViewModel Update(int id);
+
+        Task EditModel(UpdateProductViewModel model, int id);
     }
 }

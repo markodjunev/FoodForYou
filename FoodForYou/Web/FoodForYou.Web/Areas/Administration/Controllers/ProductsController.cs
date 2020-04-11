@@ -70,5 +70,23 @@
 
             return this.RedirectToAction("All", "Categories", new { area = string.Empty });
         }
+
+        public IActionResult Update(int id)
+        {
+            var model = this.productsService.Update(id);
+            return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(UpdateProductViewModel input, int id)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            await this.productsService.EditModel(input, id);
+            return this.RedirectToAction("Details", "Products", new { area = string.Empty, id = id });
+        }
     }
 }

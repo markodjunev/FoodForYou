@@ -10,6 +10,7 @@
     using FoodForYou.Data.Models;
     using FoodForYou.Services.Data.Interfaces;
     using FoodForYou.Services.Mapping;
+    using FoodForYou.Web.ViewModels.Products;
 
     public class ProductService : IProductService
     {
@@ -46,6 +47,18 @@
             await this.productsRepository.SaveChangesAsync();
         }
 
+        public async Task EditModel(UpdateProductViewModel model, int id)
+        {
+            var product = this.productsRepository.All().FirstOrDefault(x => x.Id == id);
+
+            product.Name = model.Name;
+            product.Price = model.Price;
+            product.Description = model.Description;
+
+            this.productsRepository.Update(product);
+            await this.productsRepository.SaveChangesAsync();
+        }
+
         public IEnumerable<T> GetAll<T>(string categoryName)
         {
             IQueryable products = this.productsRepository.All()
@@ -72,6 +85,20 @@
             var product = this.productsRepository.All().Where(p => p.Id == id).FirstOrDefault();
 
             return product;
+        }
+
+        public UpdateProductViewModel Update(int id)
+        {
+            var product = this.productsRepository.All().FirstOrDefault(x => x.Id == id);
+
+            var model = new UpdateProductViewModel
+            {
+                Name = product.Name,
+                Price = product.Price,
+                Description = product.Description,
+            };
+
+            return model;
         }
     }
 }
