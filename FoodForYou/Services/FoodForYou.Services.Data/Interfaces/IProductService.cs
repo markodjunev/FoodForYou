@@ -22,6 +22,6 @@
 
         UpdateProductViewModel Update(int id);
 
-        Task EditModel(UpdateProductViewModel model, int id);
+        Task EditModel(UpdateProductViewModel model, int id, string imageUrl);
     }
 }

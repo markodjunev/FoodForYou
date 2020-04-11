@@ -47,13 +47,18 @@
             await this.productsRepository.SaveChangesAsync();
         }
 
-        public async Task EditModel(UpdateProductViewModel model, int id)
+        public async Task EditModel(UpdateProductViewModel model, int id, string imageUrl)
         {
             var product = this.productsRepository.All().FirstOrDefault(x => x.Id == id);
 
             product.Name = model.Name;
             product.Price = model.Price;
             product.Description = model.Description;
+
+            if (imageUrl != null)
+            {
+                product.ImageUrl = imageUrl;
+            }
 
             this.productsRepository.Update(product);
             await this.productsRepository.SaveChangesAsync();

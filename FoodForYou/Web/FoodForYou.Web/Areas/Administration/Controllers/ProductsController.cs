@@ -85,7 +85,15 @@
                 return this.View(input);
             }
 
-            await this.productsService.EditModel(input, id);
+            string imageUrl = null;
+            if (input.ImageUrl != null)
+            {
+                imageUrl = await this.cloudinaryService.UploadPictureAsync(
+               input.ImageUrl,
+               input.Name);
+            }
+
+            await this.productsService.EditModel(input, id, imageUrl);
             return this.RedirectToAction("Details", "Products", new { area = string.Empty, id = id });
         }
     }

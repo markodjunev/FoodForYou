@@ -18,5 +18,8 @@
 
         [Required]
         public string Description { get; set; }
+
+        [Display(Name = "Upload a photo with size 512x342")]
+        public IFormFile ImageUrl { get; set; }
     }
 }
