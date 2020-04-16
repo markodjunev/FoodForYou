@@ -23,8 +23,5 @@
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter the content of the message")]
         [StringLength(10000, ErrorMessage = "The content must be at least {2} characters.", MinimumLength = 20)]
         public string Content { get; set; }
-
-        [GoogleReCaptchaValidation]
-        public string RecaptchaValue { get; set; }
     }
 }
