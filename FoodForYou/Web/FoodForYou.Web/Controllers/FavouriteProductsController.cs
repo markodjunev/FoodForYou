@@ -16,11 +16,13 @@
     public class FavouriteProductsController : BaseController
     {
         private readonly IFavouriteProductService favouriteProductService;
+        private readonly IProductService productsService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public FavouriteProductsController(IFavouriteProductService favouriteProductService, UserManager<ApplicationUser> userManager)
+        public FavouriteProductsController(IFavouriteProductService favouriteProductService, IProductService productsService, UserManager<ApplicationUser> userManager)
         {
             this.favouriteProductService = favouriteProductService;
+            this.productsService = productsService;
             this.userManager = userManager;
         }
 
@@ -38,7 +40,17 @@
 
         public async Task<IActionResult> AddProductToUser(int productId)
         {
+            if (this.productsService.GetProductById(productId) == null)
+            {
+                return this.BadRequest();
+            }
+
             var user = await this.userManager.GetUserAsync(this.User);
+
+            if (this.favouriteProductService.IsProductAdded(productId, user.Id))
+            {
+                return this.RedirectToAction("All", "FavouriteProducts");
+            }
 
             await this.favouriteProductService.AddProductToUser(productId, user.Id);
 
@@ -47,7 +59,17 @@
 
         public async Task<IActionResult> RemoveFavouriteProduct(int productId)
         {
+            if (this.productsService.GetProductById(productId) == null)
+            {
+                return this.BadRequest();
+            }
+
             var user = await this.userManager.GetUserAsync(this.User);
+
+            if (!this.favouriteProductService.IsProductAdded(productId, user.Id))
+            {
+                return this.RedirectToAction("All", "FavouriteProducts");
+            }
 
             await this.favouriteProductService.RemoveFavouriteProduct(productId, user.Id);
 

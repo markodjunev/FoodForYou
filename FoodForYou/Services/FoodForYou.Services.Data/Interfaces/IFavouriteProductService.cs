@@ -14,5 +14,7 @@
         Task RemoveFavouriteProduct(int productId, string userId);
 
         IEnumerable<FavouriteProductViewModel> GetAllFavouriteProducts(string userId);
+
+        bool IsProductAdded(int productId, string userId);
     }
 }

@@ -50,6 +50,12 @@
             return favProducts;
         }
 
+        public bool IsProductAdded(int productId, string userId)
+        {
+            var isAdded = this.favoruiteProductsRepository.All().Any(x => x.ProductId == productId && x.ApplicationUserId == userId);
+            return isAdded;
+        }
+
         public async Task RemoveFavouriteProduct(int productId, string userId)
         {
             var favProduct = this.favoruiteProductsRepository.All()
