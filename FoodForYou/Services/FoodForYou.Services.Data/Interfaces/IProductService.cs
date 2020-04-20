@@ -18,7 +18,7 @@
 
         decimal GetPriceById(int id);
 
-        Task DeleteProduct(int id);
+        Task DeleteProductAsync(int id);
 
         UpdateProductViewModel Update(int id);
 

@@ -38,7 +38,7 @@
             return product;
         }
 
-        public async Task DeleteProduct(int id)
+        public async Task DeleteProductAsync(int id)
         {
             var product = this.GetProductById(id);
 

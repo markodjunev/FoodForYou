@@ -66,7 +66,7 @@
 
         public async Task<IActionResult> Delete(int id)
         {
-            await this.productsService.DeleteProduct(id);
+            await this.productsService.DeleteProductAsync(id);
 
             return this.RedirectToAction("All", "Categories", new { area = string.Empty });
         }
