@@ -52,7 +52,7 @@
                 return this.RedirectToAction("All", "FavouriteProducts");
             }
 
-            await this.favouriteProductService.AddProductToUser(productId, user.Id);
+            await this.favouriteProductService.AddProductToUserAsync(productId, user.Id);
 
             return this.RedirectToAction("Details", "Products", new { id = productId });
         }
@@ -71,7 +71,7 @@
                 return this.RedirectToAction("All", "FavouriteProducts");
             }
 
-            await this.favouriteProductService.RemoveFavouriteProduct(productId, user.Id);
+            await this.favouriteProductService.RemoveFavouriteProductAsync(productId, user.Id);
 
             return this.RedirectToAction("Details", "Products", new { id = productId });
         }

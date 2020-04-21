@@ -21,7 +21,7 @@
             this.favoruiteProductsRepository = favoruiteProductsRepository;
         }
 
-        public async Task AddProductToUser(int productId, string userId)
+        public async Task AddProductToUserAsync(int productId, string userId)
         {
             var favProduct = new ApplicationUserFavouriteProduct
             {
@@ -56,7 +56,7 @@
             return isAdded;
         }
 
-        public async Task RemoveFavouriteProduct(int productId, string userId)
+        public async Task RemoveFavouriteProductAsync(int productId, string userId)
         {
             var favProduct = this.favoruiteProductsRepository.All()
                 .Where(x => x.ProductId == productId && x.ApplicationUserId == userId).FirstOrDefault();

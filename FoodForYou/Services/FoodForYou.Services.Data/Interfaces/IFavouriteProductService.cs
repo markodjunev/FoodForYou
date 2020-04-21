@@ -9,9 +9,9 @@
 
     public interface IFavouriteProductService
     {
-        Task AddProductToUser(int productId, string userId);
+        Task AddProductToUserAsync(int productId, string userId);
 
-        Task RemoveFavouriteProduct(int productId, string userId);
+        Task RemoveFavouriteProductAsync(int productId, string userId);
 
         IEnumerable<FavouriteProductViewModel> GetAllFavouriteProducts(string userId);
 

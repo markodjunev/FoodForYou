@@ -46,63 +46,6 @@
             Assert.Equal(14, repository.All().FirstOrDefault().Price); // check price
         }
 
-        /*[Fact]
-        public async Task ClearCart()
-        {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-              .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-              .Options;
-
-            var dbContext = new ApplicationDbContext(options);
-
-            var repository = new EfDeletableEntityRepository<OrderProduct>(dbContext);
-            var service = new OrderProductService(repository);
-
-            var orderProduct1 = new OrderProduct
-            {
-                ProductId = 1,
-                CreatorId = "xxx",
-                Quantity = 1,
-                Price = 10,
-                Status = OrderProductStatus.Active,
-            };
-
-            var orderProduct2 = new OrderProduct
-            {
-                ProductId = 2,
-                CreatorId = "xxx",
-                Quantity = 1,
-                Price = 5,
-                Status = OrderProductStatus.Active,
-            };
-
-            await repository.AddAsync(orderProduct1);
-            await repository.AddAsync(orderProduct2);
-            await repository.SaveChangesAsync();
-
-            var orderProducts3 = new ClearOrderedProductInCart
-            {
-                ProductId = 2,
-                CreatorId = "xxx",
-                Quantity = 1,
-                Price = 5,
-            };
-
-            var orderProducts4 = new ClearOrderedProductInCart
-            {
-                ProductId = 1,
-                CreatorId = "xxx",
-                Quantity = 1,
-                Price = 10,
-            };
-
-            var orderProducts = new List<ClearOrderedProductInCart>();
-            orderProducts.Add(orderProducts3);
-            orderProducts.Add(orderProducts4);
-
-            await service.ClearCartAsync(orderProducts);
-            Assert.Equal(0, repository.All().Count());
-        }*/
         [Fact]
         public async Task SetOrderProductsToOrder()
         {
