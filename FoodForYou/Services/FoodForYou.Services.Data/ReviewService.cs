@@ -88,5 +88,12 @@
 
             return reviews.Count();
         }
+
+        public Review GetReviewById(int id)
+        {
+            var review = this.reviewsRepository.All().FirstOrDefault(x => x.Id == id);
+
+            return review;
+        }
     }
 }

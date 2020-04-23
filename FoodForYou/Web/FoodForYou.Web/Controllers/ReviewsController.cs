@@ -88,6 +88,13 @@
                 return this.BadRequest();
             }
 
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            if (this.reviewsService.GetReviewById(id).CreatorId != user.Id)
+            {
+                return this.BadRequest();
+            }
+
             var productId = await this.reviewsService.DeleteAsync(id);
 
             return this.RedirectToAction("All", "Reviews", new { id = productId });

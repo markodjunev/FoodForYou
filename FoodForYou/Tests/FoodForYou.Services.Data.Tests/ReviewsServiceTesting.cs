@@ -153,6 +153,33 @@
             Assert.Equal(1, count3);
         }
 
+        [Theory]
+        [InlineData(1)]
+        public async Task GetReviewById(int id)
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+             .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+             .Options;
+
+            var dbContext = new ApplicationDbContext(options);
+
+            var repository = new EfDeletableEntityRepository<Review>(dbContext);
+            var service = new ReviewService(repository);
+
+            var reviews = this.GetReviews();
+
+            for (int i = 0; i < reviews.Count(); i++)
+            {
+                await repository.AddAsync(reviews[i]);
+            }
+
+            await repository.SaveChangesAsync();
+
+            var review = service.GetReviewById(id);
+
+            Assert.Equal(reviews[0], review);
+        }
+
         private List<Review> GetReviews()
         {
             var reviews = new List<Review>()

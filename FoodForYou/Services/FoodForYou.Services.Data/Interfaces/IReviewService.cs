@@ -5,6 +5,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
+    using FoodForYou.Data.Models;
     using FoodForYou.Web.ViewModels.Reviews;
 
     public interface IReviewService
@@ -18,5 +19,7 @@
         bool ExistReview(int id);
 
         int GetAllReviewsCountByProductId(int id);
+
+        Review GetReviewById(int id);
     }
 }
