@@ -97,5 +97,54 @@
 
             Assert.Equal(2, order.Products.Count()); // order contains 2 products
         }
+
+        [Theory]
+        [InlineData("xxx")]
+        public async Task CurrentCountOrderProductsByUserId(string userId)
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+              .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+              .Options;
+
+            var dbContext = new ApplicationDbContext(options);
+
+            var repository = new EfDeletableEntityRepository<OrderProduct>(dbContext);
+            var service = new OrderProductService(repository);
+
+            var orderProduct1 = new OrderProduct
+            {
+                ProductId = 1,
+                CreatorId = userId,
+                Quantity = 1,
+                Price = 10,
+                Status = OrderProductStatus.Active,
+            };
+
+            var orderProduct2 = new OrderProduct
+            {
+                ProductId = 2,
+                CreatorId = userId,
+                Quantity = 1,
+                Price = 5,
+                Status = OrderProductStatus.Active,
+            };
+
+            var orderProduct3 = new OrderProduct
+            {
+                ProductId = 3,
+                CreatorId = userId,
+                Quantity = 1,
+                Price = 5,
+                Status = OrderProductStatus.Completed,
+            };
+            await repository.AddAsync(orderProduct1);
+            await repository.AddAsync(orderProduct2);
+            await repository.AddAsync(orderProduct3);
+            await repository.SaveChangesAsync();
+
+            var count = service.CurrentCountOrderProductsByUserId(userId);
+
+            Assert.Equal(2, count);
+        }
     }
 }

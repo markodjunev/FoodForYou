@@ -16,5 +16,7 @@
         Task ClearCartAsync(IEnumerable<ClearOrderedProductInCart> orderedProducts);
 
         void SetOrderedProductsToOrder(Order order);
+
+        int CurrentCountOrderProductsByUserId(string userId);
     }
 }

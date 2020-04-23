@@ -7,6 +7,7 @@
 
     using FoodForYou.Common;
     using FoodForYou.Data.Models;
+    using FoodForYou.Data.Models.Enums;
     using FoodForYou.Services.Data.Interfaces;
     using FoodForYou.Web.ViewModels.OrderProducts;
     using FoodForYou.Web.ViewModels.Orders;
@@ -66,8 +67,15 @@
             return this.View(latestOrder);
         }
 
-        public IActionResult ProceedToOrder()
+        public async Task<IActionResult> ProceedToOrder()
         {
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            if (this.orderProductsService.CurrentCountOrderProductsByUserId(user.Id) == 0)
+            {
+                return this.Redirect("/");
+            }
+
             return this.View();
         }
 

@@ -49,6 +49,13 @@
             await this.orderProductRepository.SaveChangesAsync();
         }
 
+        public int CurrentCountOrderProductsByUserId(string userId)
+        {
+            var orderProductsCount = this.orderProductRepository.All().Where(x => x.CreatorId == userId && x.Status == OrderProductStatus.Active).Count();
+
+            return orderProductsCount;
+        }
+
         public IEnumerable<T> GetAllByUserId<T>(string userId)
         {
             IQueryable orderProducts = this.orderProductRepository.All()
